@@ -17,12 +17,7 @@ namespace remote_team
             Mele
         };
 
-        private List<Fruits> _fruits = new List<Fruits>();
-
-        static void Main(string[] args)
-        {
-
-            var priceLookup = new Dictionary<Fruits, decimal>
+        private static Dictionary<Fruits, decimal> _priceLookup = new Dictionary<Fruits, decimal>
             {
                 {Fruits.Apples, 1m}, 
                 {Fruits.Bananas, 1.5m}, 
@@ -32,7 +27,7 @@ namespace remote_team
                 
             };
 
-            var nameLookup = new Dictionary<string, Fruits>
+        private static Dictionary<string, Fruits> _nameLookup = new Dictionary<string, Fruits>
             {
                 {"apples", Fruits.Apples},
                 {"bananas", Fruits.Bananas},
@@ -41,6 +36,9 @@ namespace remote_team
                 {"mele", Fruits.Mele},
             };
 
+        static void Main(string[] args)
+        {
+            
             int[] fruitsCount = new int[Enum.GetValues(typeof(Fruits)).Length];
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
@@ -50,13 +48,13 @@ namespace remote_team
                 foreach (string fruitStr in fruits)
                 {
                     Fruits fruit;
-                    if (nameLookup.TryGetValue(input.ToLower(), out fruit))
+                    if (_nameLookup.TryGetValue(input.ToLower(), out fruit))
                     {
                         fruitsCount[(int) fruit]++;
                     }
                 }
 
-                WriteTotalValue(priceLookup, fruitsCount);
+                WriteTotalValue(_priceLookup, fruitsCount);
             }
 
         }
@@ -69,14 +67,14 @@ namespace remote_team
                 totalValue += (priceLookup[fruit]*fruitsCount[(int)fruit]);
             }
             totalValue -= GetCherryDiscount(fruitsCount);
-            totalValue -= GetBananaDiscount(priceLookup, fruitsCount);
+            totalValue -= GetBananaDiscount(fruitsCount);
 
             Console.WriteLine(totalValue * 100);
         }
 
-        private static decimal GetBananaDiscount(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount)
+        private static decimal GetBananaDiscount(int[] fruitsCount)
         {
-            return fruitsCount[(int)Fruits.Bananas] / 2 * priceLookup[Fruits.Bananas];
+            return fruitsCount[(int)Fruits.Bananas] / 2 * _priceLookup[Fruits.Bananas];
         }
 
         private static decimal GetCherryDiscount(int[] fruitsCount)
