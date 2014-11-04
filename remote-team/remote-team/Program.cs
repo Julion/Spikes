@@ -48,7 +48,7 @@ namespace remote_team
                 foreach (string fruitStr in fruits)
                 {
                     Fruits fruit;
-                    if (_nameLookup.TryGetValue(input.ToLower(), out fruit))
+                    if (_nameLookup.TryGetValue(fruitStr.ToLower(), out fruit))
                     {
                         fruitsCount[(int) fruit]++;
                     }
