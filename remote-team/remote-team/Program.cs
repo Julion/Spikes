@@ -5,6 +5,7 @@ namespace remote_team
 {
     class Program
     {
+        const decimal CherryDiscount = 0.2m;
 
         private enum Fruits
         {
@@ -17,7 +18,6 @@ namespace remote_team
 
         static void Main(string[] args)
         {
-            decimal CHERRY_DISCOUNT = 0.2m;
 
             var priceLookup = new Dictionary<Fruits, decimal>
             {
@@ -42,21 +42,32 @@ namespace remote_team
                 {
                     fruitsCount[(int)fruit]++;
                 }
-                WriteTotalValue(priceLookup, fruitsCount, CHERRY_DISCOUNT);
-                
+                WriteTotalValue(priceLookup, fruitsCount);
             }
 
         }
 
-        private static void WriteTotalValue(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount, decimal CHERRY_DISCOUNT)
+        private static void WriteTotalValue(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount)
         {
             decimal totalValue = 0.0m;
-            totalValue += (priceLookup[Fruits.Apples]*fruitsCount[(int) Fruits.Apples]);
-            totalValue += (priceLookup[Fruits.Cherries]*fruitsCount[(int) Fruits.Cherries]) -
-                          fruitsCount[(int) Fruits.Cherries]/2*CHERRY_DISCOUNT;
-            totalValue += (priceLookup[Fruits.Bananas]*fruitsCount[(int) Fruits.Bananas]);
+            totalValue += (priceLookup[Fruits.Apples] * fruitsCount[(int) Fruits.Apples]);
+            totalValue += (priceLookup[Fruits.Cherries] * fruitsCount[(int) Fruits.Cherries]);
+            totalValue += (priceLookup[Fruits.Bananas] * fruitsCount[(int) Fruits.Bananas]);
+
+            totalValue -= GetCherryDiscount(fruitsCount);
+            totalValue -= GetBananaDiscount(priceLookup, fruitsCount);
 
             Console.WriteLine(totalValue);
+        }
+
+        private static decimal GetBananaDiscount(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount)
+        {
+            return fruitsCount[(int)Fruits.Bananas] / 2 * priceLookup[Fruits.Bananas];
+        }
+
+        private static decimal GetCherryDiscount(int[] fruitsCount)
+        {
+            return fruitsCount[(int)Fruits.Cherries] / 2 * CherryDiscount;
         }
     }
 }
