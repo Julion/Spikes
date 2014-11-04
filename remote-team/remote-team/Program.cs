@@ -12,7 +12,9 @@ namespace remote_team
         {
             Apples,
             Bananas,
-            Cherries
+            Cherries,
+            Pommes,
+            Mele
         };
 
         private List<Fruits> _fruits = new List<Fruits>();
@@ -25,6 +27,8 @@ namespace remote_team
                 {Fruits.Apples, 1m}, 
                 {Fruits.Bananas, 1.5m}, 
                 {Fruits.Cherries, 0.75m},
+                {Fruits.Pommes, 1m}, 
+                {Fruits.Mele, 1m}, 
                 
             };
 
@@ -33,9 +37,11 @@ namespace remote_team
                 {"apples", Fruits.Apples},
                 {"bananas", Fruits.Bananas},
                 {"cherries", Fruits.Cherries},
+                {"pommes", Fruits.Pommes},
+                {"mele", Fruits.Mele},
             };
 
-            int[] fruitsCount = new int[3];
+            int[] fruitsCount = new int[Enum.GetValues(typeof(Fruits)).Length];
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
             {
@@ -58,10 +64,10 @@ namespace remote_team
         private static void WriteTotalValue(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount)
         {
             decimal totalValue = 0.0m;
-            totalValue += (priceLookup[Fruits.Apples] * fruitsCount[(int) Fruits.Apples]);
-            totalValue += (priceLookup[Fruits.Cherries] * fruitsCount[(int) Fruits.Cherries]);
-            totalValue += (priceLookup[Fruits.Bananas] * fruitsCount[(int) Fruits.Bananas]);
-
+            foreach (var fruit in Enum.GetValues(typeof(Fruits)).Cast<Fruits>())
+            {
+                totalValue += (priceLookup[fruit]*fruitsCount[(int)fruit]);
+            }
             totalValue -= GetCherryDiscount(fruitsCount);
             totalValue -= GetBananaDiscount(priceLookup, fruitsCount);
 
@@ -77,5 +83,6 @@ namespace remote_team
         {
             return fruitsCount[(int)Fruits.Cherries] / 2 * CherryDiscount;
         }
+
     }
 }
