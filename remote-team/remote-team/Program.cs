@@ -23,7 +23,8 @@ namespace remote_team
             {
                 {Fruits.Apples, 1m}, 
                 {Fruits.Bananas, 1.5m}, 
-                {Fruits.Cherries, 0.75m}
+                {Fruits.Cherries, 0.75m},
+                
             };
 
             var nameLookup = new Dictionary<string, Fruits>
@@ -57,7 +58,7 @@ namespace remote_team
             totalValue -= GetCherryDiscount(fruitsCount);
             totalValue -= GetBananaDiscount(priceLookup, fruitsCount);
 
-            Console.WriteLine(totalValue);
+            Console.WriteLine(totalValue * 100);
         }
 
         private static decimal GetBananaDiscount(Dictionary<Fruits, decimal> priceLookup, int[] fruitsCount)
