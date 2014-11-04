@@ -7,6 +7,9 @@ namespace remote_team
     class Program
     {
         const decimal CherryDiscount = 0.2m;
+        const decimal PommesDiscount = 1.0m;
+        const decimal MeleDiscount = 0.5m;
+
 
         private enum Fruits
         {
@@ -68,6 +71,8 @@ namespace remote_team
             }
             totalValue -= GetCherryDiscount(fruitsCount);
             totalValue -= GetBananaDiscount(fruitsCount);
+            totalValue -= GetPommesDiscount(fruitsCount);
+            totalValue -= GetMeleDiscount(fruitsCount);
 
             Console.WriteLine(totalValue * 100);
         }
@@ -81,6 +86,17 @@ namespace remote_team
         {
             return fruitsCount[(int)Fruits.Cherries] / 2 * CherryDiscount;
         }
+
+        private static decimal GetPommesDiscount(int[] fruitsCount)
+        {
+            return fruitsCount[(int)Fruits.Pommes] / 3 * PommesDiscount;
+        }
+
+        private static decimal GetMeleDiscount(int[] fruitsCount)
+        {
+            return fruitsCount[(int)Fruits.Mele] / 2 * MeleDiscount;
+        }
+
 
     }
 }
