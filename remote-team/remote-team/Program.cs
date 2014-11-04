@@ -38,11 +38,17 @@ namespace remote_team
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
             {
-                Fruits fruit;
-                if (nameLookup.TryGetValue(input.ToLower(), out fruit))
+                string[] fruits = input.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string fruitStr in fruits)
                 {
-                    fruitsCount[(int)fruit]++;
+                    Fruits fruit;
+                    if (nameLookup.TryGetValue(input.ToLower(), out fruit))
+                    {
+                        fruitsCount[(int) fruit]++;
+                    }
                 }
+
                 WriteTotalValue(priceLookup, fruitsCount);
             }
 
