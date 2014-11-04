@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace remote_team
 {
@@ -38,7 +39,7 @@ namespace remote_team
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
             {
-                string[] fruits = input.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries);
+                IEnumerable<string> fruits = input.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
 
                 foreach (string fruitStr in fruits)
                 {
