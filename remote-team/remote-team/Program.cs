@@ -5,29 +5,38 @@ namespace remote_team
 {
     class Program
     {
+        private enum Fruits
+        {
+            Apples,
+            Bananas,
+            Cherries
+        };
+
+        private List<Fruits> _fruits = new List<Fruits>(); 
+
         static void Main(string[] args)
         {
-            var priceLookup = new Dictionary<string, decimal>
+            var priceLookup = new Dictionary<Fruits, decimal>
             {
-                {"apples", 1m}, 
-                {"bananas", 1.5m}, 
-                {"cherries", 0.75m}
+                {Fruits.Apples, 1m}, 
+                {Fruits.Bananas, 1.5m}, 
+                {Fruits.Cherries, 0.75m}
             };
 
-            decimal totalValue = 0.0m;
+
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
             {
                 decimal value;
-                if (priceLookup.TryGetValue(input.ToLower(), out value))
+                Fruits fruit;
+                if(Enum.TryParse(input, true, out fruit))
                 {
-                    totalValue += value;
-                    Console.WriteLine("Current value: {0}", totalValue);
+                    if (priceLookup.TryGetValue(fruit, out value))
+                    {
+                        // do something
+                    }    
                 }
-                else
-                {
-                    Console.WriteLine("invalid input");
-                }
+                
             }
 
         }
