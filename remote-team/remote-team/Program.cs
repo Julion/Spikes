@@ -14,13 +14,15 @@ namespace remote_team
                 {"cherries", 0.75m}
             };
 
+            decimal totalValue = 0.0m;
             string input;
             while ((input = Console.ReadLine()) != string.Empty)
             {
                 decimal value;
                 if (priceLookup.TryGetValue(input.ToLower(), out value))
                 {
-                    // do something
+                    totalValue += value;
+                    Console.WriteLine("Current value: {0}", totalValue);
                 }
                 else
                 {
